@@ -13,9 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('ingredient_post', function (Blueprint $table) {
+            $table->foreignID('post_id')->constrained();
+            $table->foreignID('ingredient_id')->constrained();
+            $table->float('quantity');
         });
     }
 
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('ingredient_post');
     }
 };
