@@ -27,3 +27,11 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::get('/post', [PostController::class, 'post'])->middleware('auth');
+
+Route::get('/resipe', function(){
+    return view('posts/resipe');
+});
+
+Route::post('/posts',[PostController::class, 'store']);

@@ -17,7 +17,9 @@
                     @endauth
                 </div>
             @endif
-        <a href="post">post</a>
+        <div style="text-align: right;">
+            <a href="{{ url('/post') }}">post</a>
+        </div>
         <title>Resipe</title>
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -33,9 +35,12 @@
              @foreach ($posts as $post)
                 <div class='post'>
                     <p class='title'>{{ $post->title}}</p>
+                    <!--
                     <p class='body'>{{ $post->body }}</p>
+                    -->
                 </div>
             @endforeach
         </div>
+        <div class='paginate'>{{ $posts->links()}}</div>
     </body>
 </html>
