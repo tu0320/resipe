@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController; 
+use App\Http\Controllers\ImageController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,3 +36,13 @@ Route::get('/resipe', function(){
 });
 
 Route::post('/posts',[PostController::class, 'store']);
+Route::post('/upload',[ImageController::class, 'upload']);
+Route::get('/posts/{post}',[PostController::class,'show']);
+Route::get('link/',[PostController::class,'view']);
+
+
+//後で消す
+Route::get('/navber',[PostController::class,'navber']);
+Route::get('/ex', function(){
+    return view('posts/ex');
+});

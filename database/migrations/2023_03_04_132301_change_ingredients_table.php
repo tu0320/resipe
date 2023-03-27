@@ -13,15 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
-            $table->id();
-            $table->foreignID('user_id')->constrained();
-            $table->string('title',255);
-            $table->string('body',255);
-            $table->string('image_url');
-            $table->timestamps();
-            $table->softDeletes();
-            
+        Schema::table('ingredients', function (Blueprint $table) {
+        $table->integer('category')->after('id');
         });
     }
 
@@ -32,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::table('ingredients', function (Blueprint $table) {
+        $table->dropColumn('category');
+        });
     }
 };

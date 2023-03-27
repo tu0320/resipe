@@ -1,27 +1,42 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('post') }}
-        </h2>
-    </x-slot>
-    
-        <h1>レシピ</h1>
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <link href="{{secure_asset('/css/style.css')}}" rel="stylesheet">
+    </head>
          <body>
-        <h1>Blog Name</h1>
-        <form action="/posts" method="POST">
-            @csrf
-            <div class="title">
-                <h2>Title</h2>
-                <input type="text" name="post[title]" placeholder="レシピ名" value="{{ old('post.title') }}"/>
-                <p class="title__error" style="color:red">{{ $errors->first('post.title') }}</p>
-            </div>
-            <div class="body">
-                <h2>Body</h2>
-                <textarea name="post[body]" placeholder="レシピ内容">{{ old('post.body') }}</textarea>
-                <p class="body__error" style="color:red">{{ $errors->first('post.body') }}</p>
-            </div>
-            <input type="submit" value="保存"/>
-        </form>
-        <div class="back">[<a href="/">back</a>]</div>
-  
-</x-app-layout>
+              @include('layouts.navber')
+              
+            <form action="/posts" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="title">
+                    <h2>レシピ名</h2>
+                    <input type="text" name="post[title]" placeholder="（例）照り焼きチキン" value="{{ old('post.title') }}"/>
+                    <p class="title__error" style="color:red">{{ $errors->first('post.title') }}</p>
+                </div>
+                <div class="body">
+                    <h2>レシピの紹介文</h2>
+                    <textarea name="post[body]" placeholder="（例）覚えやすくて、誰でも簡単に作れる！">{{ old('post.body') }}</textarea>
+                    <p class="body__error" style="color:red">{{ $errors->first('post.body') }}</p>
+                </div>
+                <div class="image">
+                    <input type="file" name="image">
+                </div>
+                <div class="back">[<a href="/">back</a>]</div>
+                
+                <div class='ingredients'>
+                <p>材料</p>
+                    @foreach($ingredients as $ingredient)
+                
+                <input type="checkbox" name="ingredient[]" value="{{ $ingredient->id}}"> 
+                <label for="ingredient_id">{{$ingredient->name}}</label>
+                    @endforeach
+                
+                <button type="submit">投稿する</button>
+                </div>
+                
+            </form>
+            
+           
+        </body>
+</html>
