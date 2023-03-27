@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name',50);
             $table->float('protein');
             $table->float('fat');
-            $table->float('carbhydrate');
+            $table->float('carbohydrate');
         });
     }
 
