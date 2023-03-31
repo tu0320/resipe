@@ -29,4 +29,14 @@ class Post extends Model
     {
         return $this->belongsToMany(Ingredient::class);
     }
+    
+    public function syncIngredients(array $ingredients, array $quantities)
+    {
+        
+        $this->ingredients()->detach();
+        foreach($ingredients as $i => $ingredientId){
+            
+            $this->ingredients()->attach($ingredientId,['quantity' => $quantities[$i]]);
+        }
+    }
 }

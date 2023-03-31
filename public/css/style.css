@@ -4,9 +4,6 @@
     grid-template-columns: 1fr 1fr 1fr;
     gap: 150px;
     grid-template-rows:200px 200px 200px;
-    
-    
-    
 }
 .post  img{
   
@@ -25,3 +22,33 @@
      text-align:center;
      
  }
+ 
+ .text{
+     width:300px;
+ }
+ textarea {
+width: 700px;
+height: 15em;
+}
+
+.title{
+    margin:30px 30px;
+}
+.body{
+    margin:30px 30px;
+}
+
+.image {
+    
+    margin:30px 30px;
+}
+
+.ingredients{
+    margin:30px 30px;
+}
+.back{
+    margin:30px 30px;
+}
+.submit{
+    margin:30px 30px;
+}
