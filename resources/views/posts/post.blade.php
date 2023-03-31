@@ -11,7 +11,7 @@
                 @csrf
                 <div class="title">
                     <h2>レシピ名</h2>
-                    <input type="text" name="post[title]" placeholder="（例）照り焼きチキン" value="{{ old('post.title') }}"/>
+                    <input type="text" class="text" name="post[title]" placeholder="（例）照り焼きチキン  " value="{{ old('post.title') }}"/>
                     <p class="title__error" style="color:red">{{ $errors->first('post.title') }}</p>
                 </div>
                 <div class="body">
@@ -22,18 +22,51 @@
                 <div class="image">
                     <input type="file" name="image">
                 </div>
-                <div class="back">[<a href="/">back</a>]</div>
+                <div id="ingredients-box">
+                  <div class="ingredients">
+                    <select name="ingredient[name][]">
+                      @foreach($ingredients as $ingredient)
+                      <option value="{{ $ingredient->id }}">{{ $ingredient->name }}</option>
+                      @endforeach
+                    </select>
+                    <input type="text" name="ingredient[quantity][]" placeholder="グラム数">
+                  </div>
+                </div>
+                <button id="add-form">食材を追加＋</button>
                 
-                <div class='ingredients'>
-                <p>材料</p>
+                <script>
+                  const addButton = document.getElementById('add-form');
+                  const ingredientsBox = document.getElementById('ingredients-box');
+                
+                  addButton.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const ingredients = document.createElement('div');
+                    ingredients.classList.add('ingredients');
+                
+                    const select = document.createElement('select');
+                    select.setAttribute('name', 'ingredient[name][]');
+                
                     @foreach($ingredients as $ingredient)
-                
-                <input type="checkbox" name="ingredient[]" value="{{ $ingredient->id}}"> 
-                <label for="ingredient_id">{{$ingredient->name}}</label>
+                    const option{{ $ingredient->id }} = document.createElement('option');
+                    option{{ $ingredient->id }}.setAttribute('value', '{{ $ingredient->id }}');
+                    option{{ $ingredient->id }}.textContent = '{{ $ingredient->name }}';
+                    select.appendChild(option{{ $ingredient->id }});
                     @endforeach
                 
-                <button type="submit">投稿する</button>
-                </div>
+                    const input = document.createElement('input');
+                    input.setAttribute('type', 'text');
+                    input.setAttribute('name', 'ingredient[quantity][]');
+                    input.setAttribute('placeholder', 'グラム数');
+                
+                    ingredients.appendChild(select);
+                    ingredients.appendChild(input);
+                
+                    ingredientsBox.appendChild(ingredients);
+                  });
+                </script>
+
+                <button  class="submit" type="submit">投稿する</button>
+                <div class="back">[<a href="/">back</a>]</div>
                 
             </form>
             

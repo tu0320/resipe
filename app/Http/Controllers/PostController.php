@@ -35,6 +35,7 @@ class PostController extends Controller
     
     public function store(Request $request, Post $post, Image $image)
     {
+        
         //ログインしているユーザーIDを取得
         $post->user_id = $request->user()->id;
         $input = $request['post'];
@@ -42,7 +43,8 @@ class PostController extends Controller
         $image_url= Cloudinary::upload($request->file('image')->getRealPath())->getSecurePath();
         $input += ['image_url' => $image_url];
         $post->fill($input)->save();
-        $post->ingredients()->attach($request->ingredient);
+        $post->syncIngredients($request->input('ingredient.name'),$request->input('ingredient.quantity'));
+        
         return redirect('/');
     }
     
@@ -54,5 +56,9 @@ class PostController extends Controller
     public function navber()
     {
         return view('layouts/navber');
+    }
+    public function math()
+    {
+        $grams = DB::table('ingredient_post') ->select(DB::raw(quantity)) ->get();
     }
 }
